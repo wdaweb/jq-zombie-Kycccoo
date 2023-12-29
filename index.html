@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="./css/bootstrap.css">
   <style>
     #game {
-      height: 90vh;
+      height: 63vh;
       background: #aaa;
       position: relative;
       overflow: hidden;
-
+      /* width: 100%; */
     }
 
     #game>img {
@@ -68,7 +68,7 @@
     </div>
   </div>
 
-  <div class="container">
+  <div class="container2">
     <div id="game" class="w-90" style="margin-top:30px;margin-bottom:30px"></div>
   </div>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.7.32/sweetalert2.all.min.js'
@@ -101,28 +101,30 @@
 
     $('#btn-start').click(function () {
       // 停用按鈕
+
       $(this).attr('disabled', true)
-      // 開始時設定
       score = 0
       $('#text-point').text(score)
       time = 60
+      // 開始
       $('#text-time').text(time)
       const _this = this
 
-      // 開始
+
+
+      const random = Math.ceil(Math.random() * 10)
+      const top = Math.round(Math.random() * 100) + '%'
+      const left = Math.round(Math.random() * 100) + '%'
+      const bobo = $(`<img src="./bobo2.png" class="bobo" style="top: ${top}; left: ${left}" >`)
+
+      $('#game').append(bobo)
+      bobo.fadeIn(); // 使用fadeIn()方法實現淡入效果
+      moveFish(bobo)
       timer = setInterval(function () {
+        // 開始時設定
         _this
         time--
         $('#text-time').text(time)
-
-        const random = Math.ceil(Math.random() * 10)
-        const top = Math.round(Math.random() * 100) + '%'
-        const left = Math.round(Math.random() * 100) + '%'
-        const bobo = $(`<img src="./bobo2.png" class="bobo" style="top: ${top}; left: ${left}" >`)
-        $('#game').append(bobo)
-        bobo.fadeIn(); // 使用fadeIn()方法實現淡入效果
-        moveFish(bobo)
-
         // if (random < 3) {
         //   const Glodbobo =
         //     $(`<img src="./ccc.png" class="Glodbobo" style="top: ${top}; left: ${left}" >`)
@@ -180,7 +182,7 @@
       $(this).removeClass('bobo').addClass('bmoo')
       score++;
       $('#text-point').text(score);
-
+      // console.log($('game').find('.bmoo'))
       // 新增兩顆
       for (let i = 0; i < 2; i++) {
         const randomTop = Math.round(Math.random() * 100) + '%';
@@ -208,7 +210,7 @@
       // 隨機位置
       const top = Math.round(Math.random() * 100) + '%'
       const left = Math.round(Math.random() * 100) + '%'
-      bobo.animate({ top, left }, 7000, function () {
+      bobo.animate({ top, left }, 7500, 'linear', function () {
         moveFish(bobo)
       })
     }
